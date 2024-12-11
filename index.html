@@ -8,16 +8,18 @@
 <body>
     <div id="content">Loading content...</div>
     <script>
-        fetch('https://cors-anywhere.herokuapp.com/https://mefoundation.com', {
-            headers: {
-                'Origin': window.location.origin // Add the Origin header
+        // Activate CORS Anywhere first at https://cors-anywhere.herokuapp.com/corsdemo
+        fetch('https://cors-anywhere.herokuapp.com/https://mefoundation.com')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            return response.text();
         })
-        .then(response => response.text())
         .then(data => {
             document.getElementById('content').innerHTML = data;
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error fetching content:', error));
     </script>
 </body>
 </html>
